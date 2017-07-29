@@ -8,14 +8,14 @@ const fs = require("fs");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
-const usersPermit = {
-  email: "cookiesareyummy@homework.com",
-  password: "nOmN0m503"
-};
+// const usersPermit = {
+//   email: "cookiesareyummy@homework.com",
+//   password: "nOmN0m503"
+// };
 
 // sets up body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.engine("mustache", mustacheExpress());
@@ -82,7 +82,7 @@ app.get("/", (req, res) => {
 
 // app.router()
 
-
+app.use(require("./loginRoutes"));
 
 app.listen(3000, () =>{
   console.log("Node running at http://localhost:3000");

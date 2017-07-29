@@ -1,31 +1,51 @@
 const express = require("express");
 const router = express.Router();
 
-let users = {
+const sessionStore = {
+};
+
+let user = {
   "email" : "cookiesareyummy@homework.com",
-  "password" : "nOmN0m503";
-}
+  "password" : "nOmN0m503"
+};
 //
-router.get("/", (req, res) = > {
+router.get("/", (req, res) => {
   console.log("Is working?");
   res.render("index", {
-    users : users;
+    user : user
   });
 });
 
-router.post("/userLogin", (req, res) => {
-  console.log("Login request", req.body);
-  req.checkBody("email", "You must provide an email.").notEmpty();
+router.get("/userLogin", (req, res) => {
+  if(isLoggedIn(req)) {
+    res.redirect("/");
+  } else {
+    res.render("login");
+  }
+});
 
-  req.getValidationResult().then(result => {
-    if (!result.isEmpty()) {
-      res.render("index", { error: "Please enter your login information."});
-    }
-    
-  })
-})
-// const sessionStore = {
-// };
+router.post("/userLogin", (req, res) => {
+  if(req.body.email === user.email && req.body.password === user.password) {
+    req.body.user = user.email;
+    req.body.password = user.password;
+    sessionStore[req.session.id] = req.session;
+    res.send("You're logged in!");
+  } else {
+    res.send("You're not logged in. Please try again.")
+  }
+});
+
+// router.post("/userLogin", (req, res) => {
+//   console.log("Login request", req.body);
+//   req.checkBody("email", "You must provide an email.").notEmpty();
+//
+//   req.getValidationResult().then(result => {
+//     if (!result.isEmpty()) {
+//       res.render("index", { error: "Please enter your login information."});
+//     }
+//
+//   })
+// })
 //
 //
 //
