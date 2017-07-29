@@ -12,6 +12,18 @@ router.get("/", (req, res) = > {
     users : users;
   });
 });
+
+router.post("/userLogin", (req, res) => {
+  console.log("Login request", req.body);
+  req.checkBody("email", "You must provide an email.").notEmpty();
+
+  req.getValidationResult().then(result => {
+    if (!result.isEmpty()) {
+      res.render("index", { error: "Please enter your login information."});
+    }
+    
+  })
+})
 // const sessionStore = {
 // };
 //

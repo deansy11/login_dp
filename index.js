@@ -20,9 +20,9 @@ app.use(cookieParser());
 
 app.engine("mustache", mustacheExpress());
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
+// app.get("/", (req, res) => {
+//   res.render("index");
+// });
 
 // turn on template engine
 app.set("view engine", "mustache");
@@ -36,10 +36,10 @@ app.use(morgan('dev'));
 app.use(expressValidator());
 
 
-// app.get("/", (req, res) => {
-//   res.render("index", {});
-//   console.log("Can I read mustache?");
-// });
+app.get("/", (req, res) => {
+  res.render("index", {});
+  console.log("Can I read mustache?");
+});
 
 // const custLog = require("./custLog");
 // app.use(custLog(true));
