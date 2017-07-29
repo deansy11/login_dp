@@ -20,6 +20,10 @@ app.use(cookieParser());
 
 app.engine("mustache", mustacheExpress());
 
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
 // turn on template engine
 app.set("view engine", "mustache");
 
@@ -37,38 +41,49 @@ app.use(expressValidator());
 //   console.log("Can I read mustache?");
 // });
 
-const custLog = require("./custLog");
-app.use(custLog(true));
-
-// logs to file using a 'common' format
-const logStream = fs.createWriteStream(__dirname + "/access.log", {
-  flags: "a"
-});
-app.use(morgan("common", {
-  stream: logStream
-  })
-);
+// const custLog = require("./custLog");
+// app.use(custLog(true));
+//
+// // logs to file using a 'common' format
+// const logStream = fs.createWriteStream(__dirname + "/access.log", {
+//   flags: "a"
+// });
+// app.use(morgan("common", {
+//   stream: logStream
+//   })
+// );
 
 // this sets up a session store using the express-session npm
-app.use(session({
-    key: 'userId'
-    secret: 'what-is-the-secret?',
-    resave: false,
-    saveUninitialized: false,
-    // cookie: {secure: true }
-  })
-);
+// app.use(session({
+//     key: 'userId'
+//     secret: 'what-is-the-secret?',
+//     resave: false,
+//     saveUninitialized: false,
+//     // cookie: {secure: true }
+//   })
+// );
 
-// this tracks our views
-app.use((req, res, next) => {
-  console.log(req.session);
-  if (!req.session.views) {
-    req.session.views = 0;
-  }
-  req.session.views += 1;
-  next();
-});
+// let loginSession = (req, res, next) => {
+//   if(req.session.user){
+//
+//   }
+// };
+//
+// // this tracks our views
+// app.use((req, res, next) => {
+//   console.log(req.session);
+//   if (!req.session.views) {
+//     req.session.views = 0;
+//   }
+//   req.session.views += 1;
+//   next();
+// });
+
+
+// app.router()
+
+
 
 app.listen(3000, () =>{
-  console.log("Node running at http://localhost3000");
+  console.log("Node running at http://localhost:3000");
 });
