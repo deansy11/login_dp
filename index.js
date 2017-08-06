@@ -7,90 +7,25 @@ const expressValidator = require("express-validator");
 const fs = require("fs");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const login = require("./loginRoutes");
 
-// const usersPermit = {
-//   email: "cookiesareyummy@homework.com",
-//   password: "nOmN0m503"
-// };
-
-// sets up body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(cookieParser)(loginRoutes.user);
-
 app.engine("mustache", mustacheExpress());
-
-// app.get("/", (req, res) => {
-//   res.render("index");
-// });
-
-// allows us to access loginRoutes.js
-let login = require("./login");
-// app.use(require("cookie-parser")(loginRoutes.js))
-
-
-// turn on template engine
 app.set("view engine", "mustache");
-
 // assign where views are stored
 app.set("views", __dirname + "/views");
 
-app.use(morgan('dev'));
-
-// sets up express-validator
-app.use(expressValidator());
-
-
 app.get("/", (req, res) => {
-  res.render("index", {});
-  console.log("Can I read mustache?");
+  res.render("index");
 });
+
+app.use(cookieParser);
+app.use(session);
+app.use(expressValidator());
+app.use(morgan('dev'));
 
 
 app.listen(3000, () =>{
   console.log("Node running at http://localhost:3000");
 });
-
-
-
-
-// const custLog = require("./custLog");
-// app.use(custLog(true));
-//
-// // logs to file using a 'common' format
-// const logStream = fs.createWriteStream(__dirname + "/access.log", {
-//   flags: "a"
-// });
-// app.use(morgan("common", {
-//   stream: logStream
-//   })
-// );
-
-// this sets up a session store using the express-session npm
-// app.use(session({
-//     key: 'userId'
-//     secret: 'what-is-the-secret?',
-//     resave: false,
-//     saveUninitialized: false,
-//     // cookie: {secure: true }
-//   })
-// );
-
-// let loginSession = (req, res, next) => {
-//   if(req.session.user){
-//
-//   }
-// };
-//
-// // this tracks our views
-// app.use((req, res, next) => {
-//   console.log(req.session);
-//   if (!req.session.views) {
-//     req.session.views = 0;
-//   }
-//   req.session.views += 1;
-//   next();
-// });
-
-
-// app.router()

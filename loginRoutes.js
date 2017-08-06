@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-const sessionStore = {
-};
+// const sessionStore = {
+// };
+//
+// const user =  {
+//     "id" : "id",
+//     "email" : "cookiesareyummy@homework.com",
+//     "password" : "nOmN0m503"
+// };
 
-const user =  {
-    "id" : "id",
-    "email" : "cookiesareyummy@homework.com",
-    "password" : "nOmN0m503"
-};
-
-function isLoggedIn(req) {
-  return req.session.name !== undefined
-};
+// function isLoggedIn(req) {
+//   return req.session.name !== undefined
+// };
 
 router.get("/", (req, res) => {
   if(sessionStore[req.session.id]) {
