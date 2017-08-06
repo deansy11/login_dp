@@ -6,13 +6,18 @@
   </head>
   <body>
     <h1>The Login Fun Times Page!</h1>
-    <!-- {{#error}}
+    {{#error}}
     <p class="error"><strong>Login Unsuccessful</strong>{{.}}</p>
-    {{/error}} -->
+    {{/error}}
     <form class="" action="/userLogin" method="post">
       <input type="email" name="email" placeholder="Email" value="">
       <input type="text" name="password" placeholder="Password" value="">
       <button type="submit" name="button">Log In</button>
     </form>
+  <ul>
+    {{#loggedIn}}
+      <li>You're Logged In!</li>
+    {{/loggedIn}}
+  </ul>
   </body>
 </html>
