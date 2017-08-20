@@ -9,11 +9,16 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const login = require("./loginRoutes");
 
+const userPermit = {
+  name: "Wonder Woman",
+  email: "wwoman@gmail.com",
+  password: "password"
+};
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.engine("mustache", mustacheExpress());
 app.set("view engine", "mustache");
-// assign where views are stored
 app.set("views", __dirname + "/views");
 
 app.get("/", (req, res) => {
@@ -22,6 +27,14 @@ app.get("/", (req, res) => {
 
 app.use(cookieParser);
 app.use(session);
+app.get("/user/:user", (req, res) => {
+  res.cookie("name", req.params.user)
+  console.log(req.params.user);
+})
+
+app.get("/user", (req, res) => {
+  res.send(req.cookies.name);
+})
 app.use(expressValidator());
 app.use(morgan('dev'));
 
