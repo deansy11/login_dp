@@ -2,9 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  console.log("Hello?");
   if (req.session.login === true) {
-    res.redirect("/loggedIn");
+    res.redirect("/loginSuccess");
   } else {
     res.render("index", {});
   }
@@ -20,7 +19,7 @@ router.get("/loggedIn", (req, res) => {
 
 router.post("/login", (req, res) => {
   if (req.session.login === true) {
-    res.redirect("/userLogin")
+    res.redirect("/loggedIn")
   } else {
     res.redirect("/");
   }
